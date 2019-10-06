@@ -5,12 +5,11 @@ V 0.0.1, 3/10/07"""
 
 from PIL import Image
 import subprocess
-
 import util
 import errors
 
 #tesseract_exe_name = 'tesseract' # Name of executable to be called at command line
-tesseract_exe_name = 'C:/Python27/Lib/site-packages/pytesser/tesseract.exe' # Name of executable to be called at command line
+tesseract_exe_name = 'tesseract.exe' # Name of executable to be called at command line
 
 scratch_image_name = "temp.bmp" # This file must be .bmp or other Tesseract-compatible format
 scratch_text_name_root = "temp" # Leave out the .txt extension
@@ -60,15 +59,15 @@ def image_file_to_string(filename, cleanup = cleanup_scratch_flag, graceful_erro
 if __name__=='__main__':
 	im = Image.open('phototest.tif')
 	text = image_to_string(im)
-	print text
+	print(text)
 	try:
 		text = image_file_to_string('fnord.tif', graceful_errors=False)
-	except errors.Tesser_General_Exception, value:
-		print "fnord.tif is incompatible filetype.  Try graceful_errors=True"
-		print value
+	except errors.Tesser_General_Exception as value:
+		print("fnord.tif is incompatible filetype.  Try graceful_errors=True")
+		print(str(value))
 	text = image_file_to_string('fnord.tif', graceful_errors=True)
-	print "fnord.tif contents:", text
+	print("fnord.tif contents: "+text)
 	text = image_file_to_string('fonts_test.png', graceful_errors=True)
-	print text
+	print("fonts_test.png contents: "+text)
 
 
